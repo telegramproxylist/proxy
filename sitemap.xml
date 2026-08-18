@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://YOUR-USERNAME.github.io/telegram-proxy-guide/</loc>
+    <loc>https://telegramproxylist.github.io/proxy/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://YOUR-USERNAME.github.io/telegram-proxy-guide/mtproto-proxy-guide.html</loc>
+    <loc>https://telegramproxylist.github.io/proxy/mtproto-proxy-guide.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://YOUR-USERNAME.github.io/telegram-proxy-guide/socks5-proxy-guide.html</loc>
+    <loc>https://telegramproxylist.github.io/proxy/socks5-proxy-guide.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://YOUR-USERNAME.github.io/telegram-proxy-guide/socks5-vs-mtproto.html</loc>
+    <loc>https://telegramproxylist.github.io/proxy/socks5-vs-mtproto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://YOUR-USERNAME.github.io/telegram-proxy-guide/about.html</loc>
+    <loc>https://telegramproxylist.github.io/proxy/about.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
