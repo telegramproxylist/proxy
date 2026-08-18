@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is an MTProto Proxy? A Complete Guide for Telegram Users</title>
+<meta name="description" content="How MTProto proxies work, how they differ from a regular proxy, how to add one to Telegram, and what they do and don't protect against.">
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/telegram-proxy-guide/mtproto-proxy-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Is an MTProto Proxy? A Complete Guide for Telegram Users">
+<meta property="og:description" content="How MTProto proxies work under the hood and how to add one to Telegram.">
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/telegram-proxy-guide/mtproto-proxy-guide.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand"><span class="brand-mark" aria-hidden="true"></span> Telegram Proxy Guide</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mtproto-proxy-guide.html">MTProto Guide</a></li>
+      <li><a href="socks5-proxy-guide.html">SOCKS5 Guide</a></li>
+      <li><a href="socks5-vs-mtproto.html">Compare</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=nav" target="_blank" rel="noopener">Live Proxy List</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <header class="article-header">
+    <div class="container" style="max-width:720px;">
+      <span class="tag tag--mtproto">MTProto</span>
+      <h1>What Is an MTProto Proxy? A Complete Guide for Telegram Users</h1>
+      <div class="article-meta">
+        <span>Telegram Proxy Guide</span><span>·</span><span>Proxy basics</span><span>·</span><span>7 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="article-body">
+    <p class="lede">MTProto proxies are the option built directly into Telegram, and they're the reason you can add a working proxy just by tapping a link. Here's what's actually happening when you do that.</p>
+
+    <h2>MTProto, quickly</h2>
+    <p>MTProto is the protocol Telegram uses to talk to its own servers. An <strong>MTProto proxy</strong> is a relay that speaks that same protocol, sitting between your Telegram app and Telegram's servers. Because it's built at the protocol level rather than the operating-system level, Telegram can hand you a single link — <code>tg://proxy?server=...&port=...&secret=...</code> — that configures everything automatically.</p>
+    <p>That's the main practical difference from a general-purpose proxy: nothing to type into a network settings panel, no separate app. You tap the link, Telegram recognizes it, and asks whether to enable the proxy.</p>
+
+    <h2>Why it exists</h2>
+    <p>In places where Telegram's servers are blocked at the network level — usually through deep packet inspection (DPI) that recognizes and blocks Telegram's traffic pattern — a regular proxy doesn't always help, because the traffic still looks like Telegram traffic to whatever is doing the blocking. MTProto proxies address this by wrapping the connection so it's harder to fingerprint as Telegram specifically, which is why they're the more common recommendation for getting Telegram working somewhere it's being actively restricted.</p>
+
+    <h2>How to add one</h2>
+    <ol>
+      <li><strong>Get a proxy link or set of details</strong> — a <code>tg://proxy</code> link, or a server address, port, and secret you enter manually.</li>
+      <li><strong>Open the link</strong>, or go to <em>Settings → Data and Storage → Proxy → Add Proxy → MTProto</em> in the Telegram app.</li>
+      <li><strong>Enter the server, port, and secret</strong> if you're doing it manually.</li>
+      <li><strong>Save and enable it.</strong> Telegram will show a small icon in the interface when a proxy is active.</li>
+      <li><strong>Test a chat.</strong> If messages send normally and media loads, the proxy is working.</li>
+    </ol>
+
+    <div class="callout-inline">
+      <strong>Good to know:</strong> an MTProto proxy only routes Telegram's own traffic. Your browser, other apps, and the rest of your device's network activity are completely unaffected.
+    </div>
+
+    <h2>What it protects — and what it doesn't</h2>
+    <p>An MTProto proxy can help you reach Telegram when the app or its servers are being blocked, and it obscures your traffic pattern from basic network-level filtering. What it does <em>not</em> do is replace end-to-end encryption. Regular cloud chats in Telegram are encrypted between your device and Telegram's servers, but not end-to-end — only Secret Chats are. A proxy operator generally can't read your message content, but they can typically see connection metadata: that you're connecting to Telegram, roughly when, and how much data is moving.</p>
+    <p>That's the reason the source of a proxy matters. A proxy run by someone you don't know is still a third party sitting on the path between you and Telegram, even if it can't read your messages.</p>
+
+    <h2>Choosing a server</h2>
+    <p>A workable MTProto proxy needs to actually be online, reasonably fast, and current — free public proxy lists change by the hour as servers get overloaded or shut down. Rather than guessing from a static list, it's worth pulling from a source that tests servers regularly.</p>
+
+    <div class="callout-inline">
+      <strong>Where to find one:</strong> <a href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=mtproto-article" target="_blank" rel="noopener">telegramproxies.com</a> maintains an actively updated list of MTProto and SOCKS5 proxies for Telegram.
+    </div>
+
+    <h2>Quick troubleshooting</h2>
+    <ul>
+      <li><strong>Connects then drops:</strong> the server is likely overloaded — try a different one from your list.</li>
+      <li><strong>Won't connect at all:</strong> double-check the secret was copied in full; a truncated secret is the most common cause.</li>
+      <li><strong>Slow media loading:</strong> some proxies handle text fine but struggle with media-heavy traffic — this is normal for free/public servers under load.</li>
+    </ul>
+
+    <div class="post-nav">
+      <a href="index.html">← Back to home</a>
+      <a href="socks5-vs-mtproto.html">Compare with SOCKS5 →</a>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Telegram Proxy Guide</h4>
+        <p class="footer-disclaimer">Independent educational resource covering how Telegram's SOCKS5 and MTProto proxy options work. Not affiliated with or endorsed by Telegram.</p>
+      </div>
+      <div>
+        <h4>Guide</h4>
+        <ul>
+          <li><a href="mtproto-proxy-guide.html">MTProto proxy guide</a></li>
+          <li><a href="socks5-proxy-guide.html">SOCKS5 proxy guide</a></li>
+          <li><a href="socks5-vs-mtproto.html">SOCKS5 vs MTProto</a></li>
+          <li><a href="about.html">About this project</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=footer" target="_blank" rel="noopener">Live proxy list ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Telegram Proxy Guide</span>
+      <span>Built with plain HTML, CSS &amp; JS · Hosted on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

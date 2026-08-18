@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOCKS5 Proxy for Telegram: Setup Guide and Best Practices</title>
+<meta name="description" content="What a SOCKS5 proxy is, how it differs from MTProto, and how to configure one in Telegram on desktop and mobile.">
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/telegram-proxy-guide/socks5-proxy-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SOCKS5 Proxy for Telegram: Setup Guide and Best Practices">
+<meta property="og:description" content="How to configure a SOCKS5 proxy in Telegram, on desktop and mobile.">
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/telegram-proxy-guide/socks5-proxy-guide.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand"><span class="brand-mark" aria-hidden="true"></span> Telegram Proxy Guide</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mtproto-proxy-guide.html">MTProto Guide</a></li>
+      <li><a href="socks5-proxy-guide.html">SOCKS5 Guide</a></li>
+      <li><a href="socks5-vs-mtproto.html">Compare</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=nav" target="_blank" rel="noopener">Live Proxy List</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <header class="article-header">
+    <div class="container" style="max-width:720px;">
+      <span class="tag tag--socks5">SOCKS5</span>
+      <h1>SOCKS5 Proxy for Telegram: Setup Guide and Best Practices</h1>
+      <div class="article-meta">
+        <span>Telegram Proxy Guide</span><span>·</span><span>Proxy basics</span><span>·</span><span>7 min read</span>
+      </div>
+    </div>
+  </header>
+
+  <article class="article-body">
+    <p class="lede">SOCKS5 is older and more general-purpose than MTProto, which is exactly what makes it useful — and exactly what it doesn't do for you compared to Telegram's own proxy type.</p>
+
+    <h2>What SOCKS5 actually is</h2>
+    <p>SOCKS5 is a standard network proxy protocol, not something Telegram invented. It works at a lower level than an app-specific proxy: instead of understanding Telegram's traffic specifically, it just forwards whatever traffic is pointed at it — TCP and UDP alike — to its destination. That's why the same SOCKS5 server can, in principle, be used by several different apps at once, not just Telegram.</p>
+    <p>Practically, a SOCKS5 proxy is identified by four pieces of information: a <strong>server address</strong>, a <strong>port</strong>, and often a <strong>username</strong> and <strong>password</strong> for authentication.</p>
+
+    <h2>Setting it up on desktop</h2>
+    <ol>
+      <li>Open Telegram Desktop and go to <em>Settings → Advanced → Connection Type</em>.</li>
+      <li>Choose <strong>Custom proxy</strong>, then select <strong>SOCKS5</strong>.</li>
+      <li>Enter the <strong>server</strong> and <strong>port</strong>.</li>
+      <li>If the proxy requires authentication, fill in the <strong>username</strong> and <strong>password</strong> fields.</li>
+      <li>Save, then check that the connection indicator shows the proxy as active.</li>
+    </ol>
+
+    <h2>Setting it up on mobile</h2>
+    <ol>
+      <li>Go to <em>Settings → Data and Storage → Proxy</em>.</li>
+      <li>Tap <strong>Add Proxy</strong> and choose <strong>SOCKS5</strong>.</li>
+      <li>Enter the same server, port, and (if required) credentials.</li>
+      <li>Save and switch the proxy toggle on.</li>
+    </ol>
+
+    <div class="callout-inline">
+      <strong>Tip:</strong> Telegram lets you save more than one proxy and switch between them. Keep two or three known-working entries so a single dead proxy doesn't leave you disconnected.
+    </div>
+
+    <h2>What authentication buys you</h2>
+    <p>A SOCKS5 proxy with a username and password isn't meaningfully "more encrypted" — SOCKS5 itself doesn't encrypt traffic, it just relays it. What authentication does is control <em>who can use the proxy at all</em>, which matters for the proxy operator (it stops random strangers from consuming their bandwidth) more than it changes what's visible to someone watching the connection. Your Telegram traffic is still protected by Telegram's own transport encryption regardless of whether the SOCKS5 hop is authenticated.</p>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up the port with the wrong protocol</strong> — a server offering both HTTP and SOCKS5 proxying usually listens on two different ports; using the wrong one will simply fail to connect.</li>
+      <li><strong>Leaving stale proxies enabled</strong> — Telegram will keep trying a saved proxy even after it stops responding, which can look like a Telegram problem when it isn't.</li>
+      <li><strong>Assuming SOCKS5 helps with DPI-based blocking</strong> — it doesn't disguise traffic the way MTProto does, so it's a better fit for privacy/routing purposes than for evading protocol-level blocks.</li>
+    </ul>
+
+    <div class="callout-inline">
+      <strong>Where to find a server:</strong> <a href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=socks5-article" target="_blank" rel="noopener">telegramproxies.com</a> keeps a regularly refreshed list of SOCKS5 and MTProto proxies you can plug straight into these settings.
+    </div>
+
+    <div class="post-nav">
+      <a href="mtproto-proxy-guide.html">← MTProto proxy guide</a>
+      <a href="socks5-vs-mtproto.html">Compare with MTProto →</a>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Telegram Proxy Guide</h4>
+        <p class="footer-disclaimer">Independent educational resource covering how Telegram's SOCKS5 and MTProto proxy options work. Not affiliated with or endorsed by Telegram.</p>
+      </div>
+      <div>
+        <h4>Guide</h4>
+        <ul>
+          <li><a href="mtproto-proxy-guide.html">MTProto proxy guide</a></li>
+          <li><a href="socks5-proxy-guide.html">SOCKS5 proxy guide</a></li>
+          <li><a href="socks5-vs-mtproto.html">SOCKS5 vs MTProto</a></li>
+          <li><a href="about.html">About this project</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=footer" target="_blank" rel="noopener">Live proxy list ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Telegram Proxy Guide</span>
+      <span>Built with plain HTML, CSS &amp; JS · Hosted on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

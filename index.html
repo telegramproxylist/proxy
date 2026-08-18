@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram Proxy Guide — SOCKS5 &amp; MTProto Proxies Explained</title>
+<meta name="description" content="Free Telegram SOCKS5 and MTProto proxy guide: what each one is, how to add proxy settings step by step, whether public proxies are safe, and how to fix a proxy that won't connect.">
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/telegram-proxy-guide/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Telegram Proxy Guide — SOCKS5 & MTProto Proxies Explained">
+<meta property="og:description" content="How Telegram proxies actually work, and how to choose between SOCKS5 and MTProto.">
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/telegram-proxy-guide/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Telegram Proxy Guide",
+  "url": "https://YOUR-USERNAME.github.io/telegram-proxy-guide/",
+  "description": "A plain-language guide to Telegram's SOCKS5 and MTProto proxy options: how they work, how to set them up, and how to use them safely."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Telegram proxy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Telegram proxy is a server that sits between your Telegram app and Telegram's own servers, relaying your connection. Telegram supports two kinds: SOCKS5, a general-purpose network proxy, and MTProto, a proxy type built into Telegram's own protocol."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Telegram proxies free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many SOCKS5 and MTProto proxies for Telegram are shared publicly at no cost, though free servers tend to be slower and less reliable than paid ones since they're shared by many users at once."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to use a public Telegram proxy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your message content stays protected by Telegram's own transport encryption regardless of the proxy, but a proxy operator can typically see connection metadata, such as that you're connecting to Telegram and roughly when. Use proxies from a source you trust and avoid reusing the same third-party proxy for sensitive accounts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "SOCKS5 vs MTProto: which is faster?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neither protocol is inherently faster; speed depends almost entirely on how loaded the specific server is. MTProto has an edge in places actively blocking Telegram, since it's built to obscure the traffic pattern. SOCKS5 has no such obfuscation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a Telegram proxy hide my IP address from Telegram?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, in that Telegram's servers see the proxy's IP address rather than your own. The proxy operator, however, can see your real IP address, since your connection to the proxy itself isn't hidden from them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use a VPN and a Telegram proxy at the same time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A VPN routes all of your device's traffic, while a Telegram proxy (SOCKS5 or MTProto) only affects Telegram. Running both isn't usually necessary, but it doesn't conflict — Telegram's traffic will simply pass through the VPN and then the proxy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my Telegram proxy keep disconnecting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common cause is an overloaded or offline server, especially with free public proxies. Try a different server from an actively maintained list, and remove proxies that no longer respond instead of leaving them saved."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand"><span class="brand-mark" aria-hidden="true"></span> Telegram Proxy Guide</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mtproto-proxy-guide.html">MTProto Guide</a></li>
+      <li><a href="socks5-proxy-guide.html">SOCKS5 Guide</a></li>
+      <li><a href="socks5-vs-mtproto.html">Compare</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=nav" target="_blank" rel="noopener">Live Proxy List</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Relay basics</span>
+        <h1>Understand your proxy before you trust it with your traffic.</h1>
+        <p class="lede"><a href="https://telegramproxies.com">Telegram Proxy</a> supports two very different kinds of proxy — SOCKS5 and MTProto. They solve different problems, set up differently, and protect you differently. This guide breaks down how each one actually works, in plain language.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="socks5-vs-mtproto.html">Compare SOCKS5 vs MTProto</a>
+          <a class="btn btn-ghost btn-external" href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=hero" target="_blank" rel="noopener">Get a live proxy list</a>
+        </div>
+      </div>
+      <div class="relay">
+        <div class="relay-track">
+          <div class="node node-you"><span class="node-dot"></span><span class="node-label">You</span></div>
+          <div class="node node-proxy"><span class="node-dot"></span><span class="node-label">Proxy</span></div>
+          <div class="node node-telegram"><span class="node-dot"></span><span class="node-label">Telegram</span></div>
+          <span class="pulse pulse-1"></span>
+          <span class="pulse pulse-2"></span>
+        </div>
+        <p class="relay-caption">client → proxy relay → telegram servers</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Why bother</span>
+        <h2>Why people run Telegram through a proxy</h2>
+        <p class="lede">A proxy isn't just for getting around a block. Here's what it actually changes about your connection.</p>
+      </div>
+      <div class="reason-grid">
+        <div class="reason-card">
+          <span class="reason-index">01</span>
+          <h3>Reach Telegram on a restrictive network</h3>
+          <p>Some school, office, and national networks block Telegram's servers outright. An MTProto proxy in particular is built to slip past filtering that targets Telegram's traffic pattern specifically.</p>
+        </div>
+        <div class="reason-card">
+          <span class="reason-index">02</span>
+          <h3>Keep your IP address off Telegram's servers</h3>
+          <p>Telegram sees the proxy's address instead of yours. Message content is already protected by Telegram's own encryption — a proxy changes what your network address looks like, not what's inside your chats.</p>
+        </div>
+        <div class="reason-card">
+          <span class="reason-index">03</span>
+          <h3>Route around a slow or congested route</h3>
+          <p>Occasionally a proxy server sits on a better network path to Telegram's infrastructure than your default route does, which can mean fewer dropped connections on an unstable network.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Quick setup</span>
+        <h2>Adding a proxy takes under a minute</h2>
+        <p class="lede">The exact screen differs by proxy type, but the shape of it is the same everywhere in the Telegram app.</p>
+      </div>
+      <div class="steps-panel">
+        <ol class="steps-list">
+          <li><span class="step-num">01</span><h4>Get proxy details</h4><p>A SOCKS5 server/port/login, or an MTProto link or server/port/secret.</p></li>
+          <li><span class="step-num">02</span><h4>Open proxy settings</h4><p>Settings → Data and Storage → Proxy in the Telegram app, on desktop or mobile.</p></li>
+          <li><span class="step-num">03</span><h4>Add and select the type</h4><p>Choose SOCKS5 or MTProto and fill in the fields for that type.</p></li>
+          <li><span class="step-num">04</span><h4>Save and test</h4><p>Enable it, then open a chat to confirm messages and media load normally.</p></li>
+        </ol>
+        <div class="steps-links">
+          <a href="mtproto-proxy-guide.html">Full MTProto setup steps →</a>
+          <a href="socks5-proxy-guide.html">Full SOCKS5 setup steps →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Two ways to relay</span>
+        <h2>SOCKS5 and MTProto aren't interchangeable</h2>
+        <p class="lede">One is a general-purpose network proxy. The other is a protocol Telegram built specifically for itself. Knowing the difference decides how you should set it up.</p>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h3><span class="tag tag--socks5">SOCKS5</span> General-purpose proxy</h3>
+          <p>A standard proxy protocol that works at the operating-system or app level. It routes traffic for whatever you point at it — Telegram included — and typically needs a server address, port, and often a username and password.</p>
+          <ul>
+            <li>Works across many apps, not just Telegram</li>
+            <li>Supports authentication</li>
+            <li>No obfuscation of its own — traffic pattern is still visible as proxy traffic</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h3><span class="tag tag--mtproto">MTProto</span> Telegram-native proxy</h3>
+          <p>Built into Telegram's own protocol. It's added through a <code>tg://proxy</code> link or the app's proxy settings, and disguises traffic to look less like a proxy connection — useful where Telegram itself is being blocked.</p>
+          <ul>
+            <li>One tap to add from a link</li>
+            <li>Traffic obfuscation built in</li>
+            <li>Only proxies Telegram — other apps are unaffected</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">From the guide</span>
+        <h2>Read the full breakdowns</h2>
+      </div>
+      <div class="post-grid">
+        <article class="post-card">
+          <span class="tag tag--mtproto">MTProto</span>
+          <h3><a href="mtproto-proxy-guide.html">What Is an MTProto Proxy? A Complete Guide</a></h3>
+          <p>How MTProto proxies work under the hood, how to add one in a few taps, and what they do and don't protect you from.</p>
+          <span class="read-more"><a href="mtproto-proxy-guide.html">Read the guide →</a></span>
+        </article>
+        <article class="post-card">
+          <span class="tag tag--socks5">SOCKS5</span>
+          <h3><a href="socks5-proxy-guide.html">SOCKS5 Proxy for Telegram: Setup &amp; Best Practices</a></h3>
+          <p>Step-by-step setup for desktop and mobile, what authentication actually buys you, and mistakes to avoid.</p>
+          <span class="read-more"><a href="socks5-proxy-guide.html">Read the guide →</a></span>
+        </article>
+        <article class="post-card">
+          <span class="tag">Comparison</span>
+          <h3><a href="socks5-vs-mtproto.html">SOCKS5 vs MTProto: Which Should You Use?</a></h3>
+          <p>A side-by-side comparison of speed, setup complexity, obfuscation, and the situations where each one wins.</p>
+          <span class="read-more"><a href="socks5-vs-mtproto.html">Read the comparison →</a></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:760px;">
+      <div class="section-head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Common questions about Telegram proxies</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What is a Telegram proxy?</summary>
+          <div class="faq-answer">
+            <p>A server that sits between your Telegram app and Telegram's own servers, relaying your connection. Telegram supports two kinds — SOCKS5, a general-purpose network proxy, and MTProto, a proxy type built into Telegram's own protocol.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Are Telegram proxies free?</summary>
+          <div class="faq-answer">
+            <p>Many SOCKS5 and MTProto proxies for Telegram are shared publicly at no cost, though free servers tend to be slower and less reliable than paid ones since they're shared by many users at once.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Is it safe to use a public Telegram proxy?</summary>
+          <div class="faq-answer">
+            <p>Your message content stays protected by Telegram's own transport encryption regardless of the proxy, but a proxy operator can typically see connection metadata — that you're connecting to Telegram, and roughly when. Use proxies from a source you trust and avoid reusing the same third-party proxy for sensitive accounts.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>SOCKS5 vs MTProto — which is faster?</summary>
+          <div class="faq-answer">
+            <p>Neither protocol is inherently faster; speed depends almost entirely on how loaded the specific server is. MTProto has an edge in places actively blocking Telegram, since it's built to obscure the traffic pattern. SOCKS5 has no such obfuscation.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Does a Telegram proxy hide my IP address from Telegram?</summary>
+          <div class="faq-answer">
+            <p>Yes — Telegram's servers see the proxy's IP address rather than yours. The proxy operator, however, can see your real IP address, since your connection to the proxy itself isn't hidden from them.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I use a VPN and a Telegram proxy at the same time?</summary>
+          <div class="faq-answer">
+            <p>Yes. A VPN routes all of your device's traffic, while a Telegram proxy only affects Telegram. Running both isn't usually necessary, but it doesn't conflict — Telegram's traffic simply passes through the VPN and then the proxy.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Why does my Telegram proxy keep disconnecting?</summary>
+          <div class="faq-answer">
+            <p>The most common cause is an overloaded or offline server, especially with free public proxies. Try a different server from an actively maintained list, and remove proxies that no longer respond instead of leaving them saved.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="callout">
+        <div>
+          <h2>Need proxies to test right now?</h2>
+          <p>This site covers the concepts. For an actively updated list of SOCKS5 and MTProto proxies, visit the main site.</p>
+        </div>
+        <a class="btn btn-primary btn-external" href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=callout" target="_blank" rel="noopener">Visit telegramproxies.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Telegram Proxy Guide</h4>
+        <p class="footer-disclaimer">Independent educational resource covering how Telegram's SOCKS5 and MTProto proxy options work. Not affiliated with or endorsed by Telegram.</p>
+      </div>
+      <div>
+        <h4>Guide</h4>
+        <ul>
+          <li><a href="mtproto-proxy-guide.html">MTProto proxy guide</a></li>
+          <li><a href="socks5-proxy-guide.html">SOCKS5 proxy guide</a></li>
+          <li><a href="socks5-vs-mtproto.html">SOCKS5 vs MTProto</a></li>
+          <li><a href="about.html">About this project</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://telegramproxies.com/?utm_source=proxyguide&amp;utm_medium=github&amp;utm_campaign=footer" target="_blank" rel="noopener">Live proxy list ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Telegram Proxy Guide</span>
+      <span>Built with plain HTML, CSS &amp; JS · Hosted on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
